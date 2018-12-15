@@ -7,6 +7,266 @@
 	<script type="text/javascript">
 		var Web3 = require('web3');
 		var web3 = new Web3(web3.currentProvider);
+		var contractAbi = [
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "A1",
+				"type": "uint8"
+			},
+			{
+				"name": "A2",
+				"type": "uint8"
+			},
+			{
+				"name": "A3",
+				"type": "uint8"
+			},
+			{
+				"name": "A4",
+				"type": "uint8"
+			},
+			{
+				"name": "A5",
+				"type": "uint8"
+			},
+			{
+				"name": "A6",
+				"type": "uint8"
+			},
+			{
+				"name": "B1",
+				"type": "uint8"
+			}
+		],
+		"name": "Betting",
+		"outputs": [
+			{
+				"name": "Ret",
+				"type": "bool"
+			}
+		],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "DoCharity",
+		"outputs": [
+			{
+				"name": "Address",
+				"type": "address"
+			},
+			{
+				"name": "Value",
+				"type": "uint256"
+			}
+		],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "A1",
+				"type": "uint8"
+			},
+			{
+				"name": "A2",
+				"type": "uint8"
+			},
+			{
+				"name": "A3",
+				"type": "uint8"
+			},
+			{
+				"name": "A4",
+				"type": "uint8"
+			},
+			{
+				"name": "A5",
+				"type": "uint8"
+			},
+			{
+				"name": "A6",
+				"type": "uint8"
+			},
+			{
+				"name": "B1",
+				"type": "uint8"
+			}
+		],
+		"name": "DoLottery",
+		"outputs": [
+			{
+				"name": "Ret",
+				"type": "bool"
+			}
+		],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "StartLottery",
+		"outputs": [
+			{
+				"name": "Ret",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "addr",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "CongratsNotice",
+		"type": "event"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "GetBalance",
+		"outputs": [
+			{
+				"name": "Balance",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "Index",
+				"type": "uint256"
+			}
+		],
+		"name": "GetData",
+		"outputs": [
+			{
+				"name": "Player",
+				"type": "address"
+			},
+			{
+				"name": "A1",
+				"type": "uint8"
+			},
+			{
+				"name": "A2",
+				"type": "uint8"
+			},
+			{
+				"name": "A3",
+				"type": "uint8"
+			},
+			{
+				"name": "A4",
+				"type": "uint8"
+			},
+			{
+				"name": "A5",
+				"type": "uint8"
+			},
+			{
+				"name": "A6",
+				"type": "uint8"
+			},
+			{
+				"name": "B1",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "GetDataSize",
+		"outputs": [
+			{
+				"name": "Size",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "GetEndTime",
+		"outputs": [
+			{
+				"name": "Ret",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "GetStartTime",
+		"outputs": [
+			{
+				"name": "Ret",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "GetState",
+		"outputs": [
+			{
+				"name": "Ret",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+];
 		var contractAddress = "0x0b30a6ee9e9924dbc7f3d7e8358ae338fa8c13e6";
 	</script>
 </head>
@@ -17,6 +277,10 @@
     <div id="user_address">用戶位址:</div>
     <div id="user_balance">用戶餘額:</div>
     <div id="contract_address">合約位置:</div>
+	<div id="lottery_balance">獎金總額:</div>
+	<div id="lottery_count">投注次數:</div>
+	<div id="lottery_st">投注開始時間:</div>
+	<div id="lottery_ed">投注結束時間:</div>
     <div id="diff"></div>
 	
 	<script type="text/javascript">
@@ -35,7 +299,49 @@
 					user_balance.innerText = "用戶餘額:" + originalBalance + " ether";
 			   }
 		   });
-		 contract_address.innerText = "合約位置:" + contractAddress;
+		contract_address.innerText = "合約位置:" + contractAddress;
+		 
+		var contract = web3.eth.contract(contractAbi);
+		var contractInstance = contract.at(contractAddress);
+		contractInstance.GetBalance.call(function(error, result) {
+			if (error) {
+				// error handle
+			} else {
+				// result is string
+				// do something
+				lottery_balance.innerText = "獎金總額:" + result + " ether";
+			}
+		});
+		
+		contractInstance.GetDataSize.call(function(error, result) {
+			if (error) {
+				// error handle
+			} else {
+				// result is string
+				// do something
+				lottery_count.innerText = "投注次數:" + result;
+			}
+		});
+		
+		contractInstance.GetStartTime.call(function(error, result) {
+			if (error) {
+				// error handle
+			} else {
+				// result is string
+				// do something
+				lottery_st.innerText = "投注開始時間:" + result;
+			}
+		});
+		
+		contractInstance.GetEndTime.call(function(error, result) {
+			if (error) {
+				// error handle
+			} else {
+				// result is string
+				// do something
+				lottery_ed.innerText = "投注結束時間:" + result;
+			}
+		});
 	}
 
 </script>
