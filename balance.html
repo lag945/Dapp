@@ -4,46 +4,40 @@
 <head>
 <script type="text/javascript" src="./bignumber.min.js"></script>
 <script type="text/javascript" src="./web3-light.js"></script>
-<script type="text/javascript">
-   
-    var Web3 = require('web3');
-    var web3 = new Web3(web3.currentProvider);
-    //web3.setProvider(new web3.providers.HttpProvider());
-
-    function watchBalance() {
-        var coinbase = web3.eth.coinbase;
-
-        var originalBalance = 0;//= web3.eth.getBalance(coinbase).toNumber();
-		web3.eth.getBalance(coinbase,
-		function(error,result){
-			if(error){
-				// error handle
-			} else {
-				originalBalance = web3.fromWei(result,'ether').toFixed(4);
-				document.getElementById('coinbase').innerText = 'coinbase: ' + coinbase;
-				document.getElementById('original').innerText = ' original balance: ' + originalBalance;
-
-		   }
-		}
-		);
-		/*
-        web3.eth.filter('latest').watch(function() {
-            var currentBalance = web3.eth.getBalance(coinbase).toNumber();
-            document.getElementById("current").innerText = 'current: ' + currentBalance;
-            document.getElementById("diff").innerText = 'diff:    ' + (currentBalance - originalBalance);
-        });
-		*/
-    }
-
-</script>
+	<script type="text/javascript">
+		var Web3 = require('web3');
+		var web3 = new Web3(web3.currentProvider);
+		var contractAddress = "0x0b30a6ee9e9924dbc7f3d7e8358ae338fa8c13e6";
+	</script>
 </head>
 <body>
-    <h1>coinbase balance</h1>
+    <h1>金融科技威力彩Dapp</h1>
     <button type="button" onClick="watchBalance();">watch balance</button>
     <div></div>
-    <div id="coinbase"></div>
-    <div id="original"></div>
-    <div id="current"></div>
+    <div id="user_address">用戶位址:</div>
+    <div id="user_balance">用戶餘額:</div>
+    <div id="contract_address">合約位置:</div>
     <div id="diff"></div>
+	
+	<script type="text/javascript">
+	setTimeout(Init,500);
+	
+	function Init()
+	{
+		var coinbase = web3.eth.coinbase;
+		user_address.innerText = "用戶位址:" + coinbase;
+		web3.eth.getBalance(coinbase,
+			function(error,result){
+				if(error){
+					// error handle
+				} else {
+					originalBalance = web3.fromWei(result,'ether').toFixed(4);
+					user_balance.innerText = "用戶餘額:" + originalBalance + " ether";
+			   }
+		   });
+		 contract_address.innerText = "合約位置:" + contractAddress;
+	}
+
+</script>
 </body>
 </html>
