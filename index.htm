@@ -1,407 +1,404 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-
 <head>
-<script type="text/javascript" src="web3.min.js"></script>
-	<script type="text/javascript">
-		var Web3 = require('web3');
-		var web3 = new Web3(web3.currentProvider);
-		var contractAbi = [
+    <script type="text/javascript" src="web3.min.js"></script>
+    <script type="text/javascript">
+        var Web3 = require('web3');
+        var web3 = new Web3(web3.currentProvider);
+        var contractAbi = [
 	{
-		"constant": false,
-		"inputs": [
+	    "constant": false,
+	    "inputs": [
 			{
-				"name": "A1",
-				"type": "uint8"
+			    "name": "A1",
+			    "type": "uint8"
 			},
 			{
-				"name": "A2",
-				"type": "uint8"
+			    "name": "A2",
+			    "type": "uint8"
 			},
 			{
-				"name": "A3",
-				"type": "uint8"
+			    "name": "A3",
+			    "type": "uint8"
 			},
 			{
-				"name": "A4",
-				"type": "uint8"
+			    "name": "A4",
+			    "type": "uint8"
 			},
 			{
-				"name": "A5",
-				"type": "uint8"
+			    "name": "A5",
+			    "type": "uint8"
 			},
 			{
-				"name": "A6",
-				"type": "uint8"
+			    "name": "A6",
+			    "type": "uint8"
 			},
 			{
-				"name": "B1",
-				"type": "uint8"
+			    "name": "B1",
+			    "type": "uint8"
 			}
-		],
-		"name": "Betting",
-		"outputs": [
+	    ],
+	    "name": "Betting",
+	    "outputs": [
 			{
-				"name": "Ret",
-				"type": "bool"
+			    "name": "Ret",
+			    "type": "bool"
 			}
-		],
-		"payable": true,
-		"stateMutability": "payable",
-		"type": "function"
+	    ],
+	    "payable": true,
+	    "stateMutability": "payable",
+	    "type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [],
-		"name": "DoCharity",
-		"outputs": [
+	    "constant": false,
+	    "inputs": [],
+	    "name": "DoCharity",
+	    "outputs": [
 			{
-				"name": "Address",
-				"type": "address"
+			    "name": "Address",
+			    "type": "address"
 			},
 			{
-				"name": "Value",
-				"type": "uint256"
+			    "name": "Value",
+			    "type": "uint256"
 			}
-		],
-		"payable": true,
-		"stateMutability": "payable",
-		"type": "function"
+	    ],
+	    "payable": true,
+	    "stateMutability": "payable",
+	    "type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
+	    "constant": false,
+	    "inputs": [
 			{
-				"name": "A1",
-				"type": "uint8"
+			    "name": "A1",
+			    "type": "uint8"
 			},
 			{
-				"name": "A2",
-				"type": "uint8"
+			    "name": "A2",
+			    "type": "uint8"
 			},
 			{
-				"name": "A3",
-				"type": "uint8"
+			    "name": "A3",
+			    "type": "uint8"
 			},
 			{
-				"name": "A4",
-				"type": "uint8"
+			    "name": "A4",
+			    "type": "uint8"
 			},
 			{
-				"name": "A5",
-				"type": "uint8"
+			    "name": "A5",
+			    "type": "uint8"
 			},
 			{
-				"name": "A6",
-				"type": "uint8"
+			    "name": "A6",
+			    "type": "uint8"
 			},
 			{
-				"name": "B1",
-				"type": "uint8"
+			    "name": "B1",
+			    "type": "uint8"
 			}
-		],
-		"name": "DoLottery",
-		"outputs": [
+	    ],
+	    "name": "DoLottery",
+	    "outputs": [
 			{
-				"name": "Ret",
-				"type": "bool"
+			    "name": "Ret",
+			    "type": "bool"
 			}
-		],
-		"payable": true,
-		"stateMutability": "payable",
-		"type": "function"
+	    ],
+	    "payable": true,
+	    "stateMutability": "payable",
+	    "type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [],
-		"name": "StartLottery",
-		"outputs": [
+	    "constant": false,
+	    "inputs": [],
+	    "name": "StartLottery",
+	    "outputs": [
 			{
-				"name": "Ret",
-				"type": "bool"
+			    "name": "Ret",
+			    "type": "bool"
 			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
+	    ],
+	    "payable": false,
+	    "stateMutability": "nonpayable",
+	    "type": "function"
 	},
 	{
-		"inputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
+	    "inputs": [],
+	    "payable": false,
+	    "stateMutability": "nonpayable",
+	    "type": "constructor"
 	},
 	{
-		"anonymous": false,
-		"inputs": [
+	    "anonymous": false,
+	    "inputs": [
 			{
-				"indexed": false,
-				"name": "addr",
-				"type": "address"
+			    "indexed": false,
+			    "name": "addr",
+			    "type": "address"
 			},
 			{
-				"indexed": false,
-				"name": "amount",
-				"type": "uint256"
+			    "indexed": false,
+			    "name": "amount",
+			    "type": "uint256"
 			}
-		],
-		"name": "CongratsNotice",
-		"type": "event"
+	    ],
+	    "name": "CongratsNotice",
+	    "type": "event"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "GetBalance",
-		"outputs": [
+	    "constant": true,
+	    "inputs": [],
+	    "name": "GetBalance",
+	    "outputs": [
 			{
-				"name": "Balance",
-				"type": "uint256"
+			    "name": "Balance",
+			    "type": "uint256"
 			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
+	    ],
+	    "payable": false,
+	    "stateMutability": "view",
+	    "type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [
+	    "constant": true,
+	    "inputs": [
 			{
-				"name": "Index",
-				"type": "uint256"
+			    "name": "Index",
+			    "type": "uint256"
 			}
-		],
-		"name": "GetData",
-		"outputs": [
+	    ],
+	    "name": "GetData",
+	    "outputs": [
 			{
-				"name": "Player",
-				"type": "address"
+			    "name": "Player",
+			    "type": "address"
 			},
 			{
-				"name": "A1",
-				"type": "uint8"
+			    "name": "A1",
+			    "type": "uint8"
 			},
 			{
-				"name": "A2",
-				"type": "uint8"
+			    "name": "A2",
+			    "type": "uint8"
 			},
 			{
-				"name": "A3",
-				"type": "uint8"
+			    "name": "A3",
+			    "type": "uint8"
 			},
 			{
-				"name": "A4",
-				"type": "uint8"
+			    "name": "A4",
+			    "type": "uint8"
 			},
 			{
-				"name": "A5",
-				"type": "uint8"
+			    "name": "A5",
+			    "type": "uint8"
 			},
 			{
-				"name": "A6",
-				"type": "uint8"
+			    "name": "A6",
+			    "type": "uint8"
 			},
 			{
-				"name": "B1",
-				"type": "uint8"
+			    "name": "B1",
+			    "type": "uint8"
 			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
+	    ],
+	    "payable": false,
+	    "stateMutability": "view",
+	    "type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "GetDataSize",
-		"outputs": [
+	    "constant": true,
+	    "inputs": [],
+	    "name": "GetDataSize",
+	    "outputs": [
 			{
-				"name": "Size",
-				"type": "uint256"
+			    "name": "Size",
+			    "type": "uint256"
 			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
+	    ],
+	    "payable": false,
+	    "stateMutability": "view",
+	    "type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "GetEndTime",
-		"outputs": [
+	    "constant": true,
+	    "inputs": [],
+	    "name": "GetEndTime",
+	    "outputs": [
 			{
-				"name": "Ret",
-				"type": "uint256"
+			    "name": "Ret",
+			    "type": "uint256"
 			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
+	    ],
+	    "payable": false,
+	    "stateMutability": "view",
+	    "type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "GetStartTime",
-		"outputs": [
+	    "constant": true,
+	    "inputs": [],
+	    "name": "GetStartTime",
+	    "outputs": [
 			{
-				"name": "Ret",
-				"type": "uint256"
+			    "name": "Ret",
+			    "type": "uint256"
 			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
+	    ],
+	    "payable": false,
+	    "stateMutability": "view",
+	    "type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "GetState",
-		"outputs": [
+	    "constant": true,
+	    "inputs": [],
+	    "name": "GetState",
+	    "outputs": [
 			{
-				"name": "Ret",
-				"type": "string"
+			    "name": "Ret",
+			    "type": "string"
 			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
+	    ],
+	    "payable": false,
+	    "stateMutability": "view",
+	    "type": "function"
 	}
-];
-		var contractAddress = "0x0b30a6ee9e9924dbc7f3d7e8358ae338fa8c13e6";
-		var contract;
-		var contractInstance;
-		var coinbase;
-	</script>
+        ];
+        var contractAddress = "0x0b30a6ee9e9924dbc7f3d7e8358ae338fa8c13e6";
+        var contract;
+        var contractInstance;
+        var coinbase;
+    </script>
 </head>
 <body>
     <h1>金融科技威力彩Dapp</h1>
     <div></div>
     <div id="user_address">用戶位址:</div>
-	<div id="user_network">用戶網段:</div>
+    <div id="user_network">用戶網段:</div>
     <div id="user_balance">用戶餘額:</div>
     <div id="contract_address">合約位置:</div>
-	<div id="lottery_balance">獎金總額:</div>
-	<div id="lottery_count">投注次數:</div>
-	<div id="lottery_st">投注開始時間:</div>
-	<div id="lottery_ed">投注結束時間:</div>
-	<div id="sect1">第一區:<input type="text" id="a1" size="2"><input type="text" id="a2" size="2"><input type="text" id="a3" size="2"><input type="text" id="a4" size="2"><input type="text" id="a5" size="2"><input type="text" id="a6" size="2"></div>
-	<div id="sect2">第二區:<input type="text" id="b1" size="2"></div>
+    <div id="lottery_balance">獎金總額:</div>
+    <div id="lottery_count">投注次數:</div>
+    <div id="lottery_st">投注開始時間:</div>
+    <div id="lottery_ed">投注結束時間:</div>
+    <div id="sect1">第一區:<input type="text" id="a1" size="2"><input type="text" id="a2" size="2"><input type="text" id="a3" size="2"><input type="text" id="a4" size="2"><input type="text" id="a5" size="2"><input type="text" id="a6" size="2"></div>
+    <div id="sect2">第二區:<input type="text" id="b1" size="2"></div>
     <div id="sect3"><button type="button" onClick="Betting();">投注</button></div>
-	
-	<script type="text/javascript">
-	setTimeout(Init,500);
-	
-	function Init()
-	{
-		coinbase = web3.eth.coinbase;
-		user_address.innerText = "用戶位址:" + coinbase;
-		
-		web3.version.getNetwork((err, netId) => {
-		  switch (netId) {
-			case "1":
-				user_network.innerText = "用戶網段:mainnet";
-			  break
-			case "2":
-				user_network.innerText = "用戶網段:deprecated Morden test network";
-			  break
-			case "3":
-				user_network.innerText = "用戶網段:opsten test";
-			  break
-			default:
-				user_network.innerText = "用戶網段:unknown";
-		  }
-		})
-		
-		web3.eth.getBalance(coinbase,
-			function(error,result){
-				if(error){
-					// error handle
-				} else {
-					originalBalance = web3.fromWei(result,'ether').toFixed(4);
-					user_balance.innerText = "用戶餘額:" + originalBalance + " ether";
-			   }
-		   });
-		contract_address.innerText = "合約位置:" + contractAddress;
-		 
-		contract = web3.eth.contract(contractAbi);
-		contractInstance = contract.at(contractAddress);
-		contractInstance.GetBalance.call(function(error, result) {
-			if (error) {
-				// error handle
-			} else {
-				// result is string
-				// do something
-				lottery_balance.innerText = "獎金總額:" + result + " ether";
-			}
-		});
-		
-		contractInstance.GetDataSize.call(function(error, result) {
-			if (error) {
-				// error handle
-			} else {
-				// result is string
-				// do something
-				lottery_count.innerText = "投注次數:" + result;
-			}
-		});
-		
-		contractInstance.GetStartTime.call(function(error, result) {
-			if (error) {
-				// error handle
-			} else {
-				// result is string
-				// do something
-				lottery_st.innerText = "投注開始時間:" + timeConverter(result);
-			}
-		});
-		
-		contractInstance.GetEndTime.call(function(error, result) {
-			if (error) {
-				// error handle
-			} else {
-				// result is string
-				// do something
-				lottery_ed.innerText = "投注結束時間:" + timeConverter(result);
-			}
-		});
-	}
-	
-	function timeConverter(UNIX_timestamp){
-		var a = new Date(UNIX_timestamp * 1000);
-		var months = ['01','02','03','04','05','08','09','00','09','10','11','12'];
-		var year = a.getFullYear();
-		var month = months[a.getMonth()];
-		var date = a.getDate();
-		var hour = a.getHours();
-		var min = a.getMinutes();
-		var sec = a.getSeconds();
-		//var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-		var time = year + "-" + months[a.getMonth()] + "-" + a.getDate() + " " + addZero(hour) + ':' + addZero(min) + ':' + addZero(sec);
-		return time;
-	}
-	
-	function addZero(i) {
-		if (i < 10) {
-			i = "0" + i;
-		}
-		return i;
-	}
-	
-	function Betting()
-	{
-		contractInstance.Betting.sendTransaction(parseInt(a1.value),parseInt(a2.value),parseInt(a3.value),parseInt(a4.value),parseInt(a5.value),parseInt(a6.value),parseInt(b1.value), {
-    "from": coinbase,
-    "value": '100000000000000000'
-},             
-			function(error, result){
-				if(error){
-					// error handle
-				} else {
-					// do something
-				}
-		});
-	}
+    <div id="message">Welcome.</div>
 
-</script>
+    <script type="text/javascript">
+        setTimeout(Init, 500);
+
+        function Init() {
+            coinbase = web3.eth.coinbase;
+            user_address.innerText = "用戶位址:" + coinbase;
+
+            web3.version.getNetwork((err, netId) => {
+                switch (netId) {
+                    case "1":
+                        user_network.innerText = "用戶網段:mainnet";
+                        break
+                    case "2":
+                        user_network.innerText = "用戶網段:deprecated Morden test network";
+                        break
+                    case "3":
+                        user_network.innerText = "用戶網段:opsten test";
+                        break
+                    default:
+                        user_network.innerText = "用戶網段:unknown";
+                }
+            })
+
+            web3.eth.getBalance(coinbase,
+                function (error, result) {
+                    if (error) {
+                        // error handle
+                    } else {
+                        originalBalance = web3.fromWei(result, 'ether').toFixed(4);
+                        user_balance.innerText = "用戶餘額:" + originalBalance + " ether";
+                    }
+                });
+            contract_address.innerText = "合約位置:" + contractAddress;
+
+            contract = web3.eth.contract(contractAbi);
+            contractInstance = contract.at(contractAddress);
+            contractInstance.GetBalance.call(function (error, result) {
+                if (error) {
+                    // error handle
+                } else {
+                    // result is string
+                    // do something
+                    lottery_balance.innerText = "獎金總額:" + result + " ether";
+                }
+            });
+
+            contractInstance.GetDataSize.call(function (error, result) {
+                if (error) {
+                    // error handle
+                } else {
+                    // result is string
+                    // do something
+                    lottery_count.innerText = "投注次數:" + result;
+                }
+            });
+
+            contractInstance.GetStartTime.call(function (error, result) {
+                if (error) {
+                    // error handle
+                } else {
+                    // result is string
+                    // do something
+                    lottery_st.innerText = "投注開始時間:" + timeConverter(result);
+                }
+            });
+
+            contractInstance.GetEndTime.call(function (error, result) {
+                if (error) {
+                    // error handle
+                } else {
+                    // result is string
+                    // do something
+                    lottery_ed.innerText = "投注結束時間:" + timeConverter(result);
+                }
+            });
+        }
+
+        function timeConverter(UNIX_timestamp) {
+            var a = new Date(UNIX_timestamp * 1000);
+            var months = ['01', '02', '03', '04', '05', '08', '09', '00', '09', '10', '11', '12'];
+            var year = a.getFullYear();
+            var month = months[a.getMonth()];
+            var date = a.getDate();
+            var hour = a.getHours();
+            var min = a.getMinutes();
+            var sec = a.getSeconds();
+            //var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+            var time = year + "-" + months[a.getMonth()] + "-" + a.getDate() + " " + addZero(hour) + ':' + addZero(min) + ':' + addZero(sec);
+            return time;
+        }
+
+        function addZero(i) {
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+        }
+
+        function Betting() {
+            contractInstance.Betting.sendTransaction(parseInt(a1.value), parseInt(a2.value), parseInt(a3.value), parseInt(a4.value), parseInt(a5.value), parseInt(a6.value), parseInt(b1.value), {
+                "from": coinbase,
+                "value": '100000000000000000'
+            },
+                function (error, result) {
+                    if (error) {
+                        // error handle
+                    } else {
+                        // do something
+                    }
+                });
+        }
+
+    </script>
 </body>
 </html>
-
