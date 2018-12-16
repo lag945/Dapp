@@ -278,13 +278,14 @@
     <div id="user_network">用戶網段:</div>
     <div id="user_balance">用戶餘額:</div>
     <div id="contract_address">合約位置:</div>
+    <div id="lottery_status">樂透狀態:</div>
     <div id="lottery_balance">獎金總額:</div>
     <div id="lottery_count">投注次數:</div>
     <div id="lottery_st">投注開始時間:</div>
     <div id="lottery_ed">投注結束時間:</div>
     <div id="sect1">第一區:<input type="text" id="a1" size="2"><input type="text" id="a2" size="2"><input type="text" id="a3" size="2"><input type="text" id="a4" size="2"><input type="text" id="a5" size="2"><input type="text" id="a6" size="2"></div>
     <div id="sect2">第二區:<input type="text" id="b1" size="2"></div>
-    <div id="sect3"><button type="button" onClick="Betting();">投注</button></div>
+    <div id="sect3"><button type="button" onClick="Betting();">投注</button><button type="button" onClick="DoLottery();">開獎</button><button type="button" onClick="StartLottery();">建立</button></div>
     <BR /> <BR />
     <div id="message">Welcome.</div>
     <script type="text/javascript">
@@ -328,6 +329,17 @@
             contract = web3.eth.contract(contractAbi);
             contractInstance = contract.at(contractAddress);
 
+            //智能合約呼叫-取得樂透狀態
+            contractInstance.GetState.call(function (error, result) {
+                if (error) {
+                    // error handle
+                } else {
+                    // result is string
+                    // do something
+                    lottery_status.innerText = "樂透狀態:" + result;
+                }
+            });
+
             //智能合約呼叫-取得獎勵總額
             contractInstance.GetBalance.call(function (error, result) {
                 if (error) {
@@ -370,6 +382,13 @@
                     // do something
                     lottery_ed.innerText = "投注結束時間:" + timeConverter(result);
                 }
+            });
+
+            var event = contractInstance.CongratsNotice();
+
+            //監聽
+            event.watch(function (error, result) {
+                message.innerText += "\n中獎事件:恭喜 " + result.args.addr + " ,贏得了頭獎 " + web3.fromWei(result.args.amount, 'ether').toFixed(2) + " ether.";
             });
         }
 
@@ -429,6 +448,41 @@
                     } else {
                         // do something
                         message.innerText += "\n投注成功!";
+                    }
+                });
+        }
+
+        //開獎
+        function DoLottery() {
+            if (!CheckNumber()) return;
+            contractInstance.DoLottery.sendTransaction(parseInt(a1.value), parseInt(a2.value), parseInt(a3.value), parseInt(a4.value), parseInt(a5.value), parseInt(a6.value), parseInt(b1.value), {
+                "from": coinbase,
+                "value": '0'
+            },
+                function (error, result) {
+                    if (error) {
+                        // error handle
+                        message.innerText += "\n開獎失敗!";
+                    } else {
+                        // do something
+                        message.innerText += "\n開獎成功!";
+                    }
+                });
+        }
+
+        //建立本期彩卷
+        function StartLottery() {
+            contractInstance.StartLottery.sendTransaction({
+                "from": coinbase,
+                "value": '0'
+            },
+                function (error, result) {
+                    if (error) {
+                        // error handle
+                        message.innerText += "\n建立失敗!";
+                    } else {
+                        // do something
+                        message.innerText += "\n建立成功!";
                     }
                 });
         }
