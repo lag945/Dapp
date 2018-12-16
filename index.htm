@@ -265,7 +265,7 @@
 	    "type": "function"
 	}
         ];
-        var contractAddress = "0x0b30a6ee9e9924dbc7f3d7e8358ae338fa8c13e6";
+        var contractAddress = "0xb11c91c2402bbfea3a9792b6b6d62951079ef1eb";//合約位址
         var contract;
         var contractInstance;
         var coinbase;
@@ -288,12 +288,14 @@
     <BR /> <BR />
     <div id="message">Welcome.</div>
     <script type="text/javascript">
-        setTimeout(Init, 500);
+        setTimeout(Init, 500);//等一下再初始化
 
         function Init() {
+            //取得用戶位置
             coinbase = web3.eth.coinbase;
             user_address.innerText = "用戶位址:" + coinbase;
 
+            //確認一下網段
             web3.version.getNetwork((err, netId) => {
                 switch (netId) {
                     case "1":
@@ -310,29 +312,34 @@
                 }
             })
 
+            //取得用戶餘額
             web3.eth.getBalance(coinbase,
                 function (error, result) {
                     if (error) {
                         // error handle
                     } else {
-                        originalBalance = web3.fromWei(result, 'ether').toFixed(4);
+                        originalBalance = web3.fromWei(result, 'ether').toFixed(2);
                         user_balance.innerText = "用戶餘額:" + originalBalance + " ether";
                     }
                 });
-            contract_address.innerText = "合約位置:" + contractAddress;
 
+            contract_address.innerText = "合約位置:" + contractAddress;
+            //建立合約實例
             contract = web3.eth.contract(contractAbi);
             contractInstance = contract.at(contractAddress);
+
+            //智能合約呼叫-取得獎勵總額
             contractInstance.GetBalance.call(function (error, result) {
                 if (error) {
                     // error handle
                 } else {
                     // result is string
                     // do something
-                    lottery_balance.innerText = "獎金總額:" + result + " ether";
+                    lottery_balance.innerText = "獎金總額:" + web3.fromWei(result, 'ether').toFixed(2) + " ether";
                 }
             });
 
+            //智能合約呼叫-取得下注次數
             contractInstance.GetDataSize.call(function (error, result) {
                 if (error) {
                     // error handle
@@ -343,6 +350,7 @@
                 }
             });
 
+            //取得本期威力彩開始時間
             contractInstance.GetStartTime.call(function (error, result) {
                 if (error) {
                     // error handle
@@ -353,6 +361,7 @@
                 }
             });
 
+            //取得本期威力彩結束時間
             contractInstance.GetEndTime.call(function (error, result) {
                 if (error) {
                     // error handle
@@ -364,6 +373,7 @@
             });
         }
 
+        //unix time to local time GMT8+
         function timeConverter(UNIX_timestamp) {
             var a = new Date(UNIX_timestamp * 1000);
             var months = ['01', '02', '03', '04', '05', '08', '09', '00', '09', '10', '11', '12'];
@@ -373,11 +383,11 @@
             var hour = a.getHours();
             var min = a.getMinutes();
             var sec = a.getSeconds();
-            //var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
             var time = year + "-" + months[a.getMonth()] + "-" + a.getDate() + " " + addZero(hour) + ':' + addZero(min) + ':' + addZero(sec);
             return time;
         }
 
+        //補0
         function addZero(i) {
             if (i < 10) {
                 i = "0" + i;
@@ -385,6 +395,7 @@
             return i;
         }
 
+        //確認選號是否合理
         function CheckNumber() {
             var _a1 = parseInt(a1.value);
             var _a2 = parseInt(a2.value);
@@ -404,11 +415,12 @@
             return false;
         }
 
+        //下注
         function Betting() {
             if (!CheckNumber()) return;
             contractInstance.Betting.sendTransaction(parseInt(a1.value), parseInt(a2.value), parseInt(a3.value), parseInt(a4.value), parseInt(a5.value), parseInt(a6.value), parseInt(b1.value), {
                 "from": coinbase,
-                "value": '100000000000000000'
+                "value": '100000000000000000'//至少0.1 ether
             },
                 function (error, result) {
                     if (error) {
