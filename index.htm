@@ -285,8 +285,8 @@
     <div id="sect1">第一區:<input type="text" id="a1" size="2"><input type="text" id="a2" size="2"><input type="text" id="a3" size="2"><input type="text" id="a4" size="2"><input type="text" id="a5" size="2"><input type="text" id="a6" size="2"></div>
     <div id="sect2">第二區:<input type="text" id="b1" size="2"></div>
     <div id="sect3"><button type="button" onClick="Betting();">投注</button></div>
+    <BR /> <BR />
     <div id="message">Welcome.</div>
-
     <script type="text/javascript">
         setTimeout(Init, 500);
 
@@ -385,7 +385,27 @@
             return i;
         }
 
+        function CheckNumber() {
+            var _a1 = parseInt(a1.value);
+            var _a2 = parseInt(a2.value);
+            var _a3 = parseInt(a3.value);
+            var _a4 = parseInt(a4.value);
+            var _a5 = parseInt(a5.value);
+            var _a6 = parseInt(a6.value);
+            var _b1 = parseInt(b1.value);
+
+            if (_a1 >= 1 && _a2 > _a1 && _a3 > _a2 && _a4 > _a3 && _a5 > _a4 && _a6 > _a5 && _a6 <= 38 && _b1 >= 1 && _b1 <= 8) {
+
+                return true;
+            }
+
+            message.innerText += "\n號碼異常-第一區01-38,第二區01-08不可重複。";
+
+            return false;
+        }
+
         function Betting() {
+            if (!CheckNumber()) return;
             contractInstance.Betting.sendTransaction(parseInt(a1.value), parseInt(a2.value), parseInt(a3.value), parseInt(a4.value), parseInt(a5.value), parseInt(a6.value), parseInt(b1.value), {
                 "from": coinbase,
                 "value": '100000000000000000'
@@ -393,8 +413,10 @@
                 function (error, result) {
                     if (error) {
                         // error handle
+                        message.innerText += "\n投注失敗!";
                     } else {
                         // do something
+                        message.innerText += "\n投注成功!";
                     }
                 });
         }
